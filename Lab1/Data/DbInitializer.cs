@@ -13,6 +13,7 @@ namespace Week2_IdentitySystem.Data
 {
     public static class DbInitializer
     {
+        public static AppSecrets appSecrets { get; set; }
         public static async Task<int> SeedUsersAndRoles(IServiceProvider serviceProvider)
         {
             // create the database if it doesn't exist
@@ -69,7 +70,7 @@ namespace Week2_IdentitySystem.Data
                 LastName = "Nurse",
                 EmailConfirmed = true
             };
-            var result = await userManager.CreateAsync(managerUser, "RapsRule1!");
+            var result = await userManager.CreateAsync(managerUser, appSecrets.AdminPwd);
             if (!result.Succeeded)
                 return 1;  // should log an error message here
 
@@ -87,7 +88,7 @@ namespace Week2_IdentitySystem.Data
                 LastName = "Lowry",
                 EmailConfirmed = true
             };
-            result = await userManager.CreateAsync(playerUser, "Hustle1!");
+            result = await userManager.CreateAsync(playerUser, appSecrets.MemberPwd);
             if (!result.Succeeded)
                 return 3;  // should log an error message here
 
